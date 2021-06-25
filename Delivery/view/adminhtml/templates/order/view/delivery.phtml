@@ -1,0 +1,22 @@
+<?php
+/** @var  $block \Magenest\Delivery\Block\Adminhtml\Order\View\Delivery*/
+$address = $block->getDeliveryInfo();
+?>
+<div class="admin__page-section-item-title">
+    <span class="title"><?= __('Delivery Information') ?></span>
+</div>
+<div class="admin__page-section-content">
+    <?php if ($block->isDisplayDelivery()): ?>
+        <?php
+            if (!is_null($address['delivery_date'])) {
+                $date = date_create($address['delivery_date']);
+                $dateFormat = date_format($date, "d-m-Y");
+            } else {
+                $dateFormat = 'none';
+            }
+        ?>
+        <p><?= __('Delivery Date:') ?> <?= $dateFormat ?></p>
+        <p><?= __('Delivery Time:') ?> <?= !is_null($address['delivery_time']) ? $address['delivery_time'] : 'none' ?></p>
+        <p><?= __('Delivery Comment:') ?> <?= !is_null($address['delivery_comment']) ? $address['delivery_comment'] : 'none' ?></p>
+    <?php endif; ?>
+</div>

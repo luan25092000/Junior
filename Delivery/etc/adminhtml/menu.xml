@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2018 Magenest. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Magenest_Delivery::delivery" title="Delivery" module="Magenest_Delivery" sortOrder="50" resource="Magenest_Delivery::delivery" />
+        <add id="Magenest_Delivery::manager" title="Manager" module="Magenest_Delivery" sortOrder="10" action="magenest_delivery/delivery/index" resource="Magenest_Delivery::manager" parent="Magenest_Delivery::delivery"/>
+        <add id="Magenest_Delivery::config" title="Configuration" module="Magenest_Delivery" sortOrder="20" action="adminhtml/system_config/edit/section/delivery_config" resource="Magenest_Delivery::config" parent="Magenest_Delivery::delivery"/>
+    </menu>
+</config>

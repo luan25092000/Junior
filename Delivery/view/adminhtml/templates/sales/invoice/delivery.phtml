@@ -1,0 +1,30 @@
+<?php
+/** @var  $block \Magenest\Delivery\Block\Adminhtml\Order\View\Delivery*/
+$address = $block->getDeliveryInfo();
+?>
+<div class="admin__table-secondary order-information-table">
+    <?php if ($block->isDisplayDelivery()): ?>
+        <?php
+            if (!is_null($address['delivery_date'])) {
+                $date = date_create($address['delivery_date']);
+                $dateFormat = date_format($date, "d-m-Y");
+            } else {
+                $dateFormat = 'none';
+            }
+        ?>
+        <tbody>
+            <tr>
+                <th><?= __('Delivery Date:') ?></th>
+                <td><?= $dateFormat ?></td>
+            </tr>
+            <tr>
+                <th><?= __('Delivery Time:') ?></th>
+                <td><?= !is_null($address['delivery_time']) ? $address['delivery_time'] : 'none' ?></td>
+            </tr>
+            <tr>
+                <th><?= __('Delivery Comment:') ?> </th>
+                <td><?= !is_null($address['delivery_comment']) ? $address['delivery_comment'] : 'none' ?></td>
+            </tr>
+        </tbody>
+    <?php endif; ?>
+</div>

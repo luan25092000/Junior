@@ -1,0 +1,75 @@
+<?php
+/** @var $block \Magenest\ConUrlRew\Block\Sales */
+?>
+<style>
+    #content {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    #content td, #content th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #content tr:nth-child(even){background-color: #f2f2f2;}
+
+    #content tr:hover {background-color: #ddd;}
+
+    #content th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+    }
+</style>
+<button class="button primary" id="sale-button" style="float:right;margin-left:1rem;">
+    <span><?= __('SALE') ?></span>
+</button>
+<div class="sale-grid" style="display: none">
+    <?php if ($block->getProductSale()->count() < 1): ?>
+        <div><?= __('No record(s)') ?></div>
+    <?php else: ?>
+        <table id="content">
+            <tr>
+                <th>#</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+            <?php $count = 1; foreach ($block->getProductSale() as $product): ?>
+                <tr>
+                    <td><?= $count ?></td>
+                    <td>
+                        <a href="<?= $block->getUrlRewrite($product->getId()) ?>">
+                            <img src="<?= $block->getImageUrl($product) ?>" />
+                        </a>
+                    </td>
+                    <td><?= $product->getName() ?></td>
+                    <td><?= $block->getFormattedPrice($product->getPrice()) ?></td>
+                </tr>
+            <?php $count++; endforeach; ?>
+        </table>
+    <?php endif; ?>
+</div>
+<script>
+    require(
+        ['jquery', 'Magento_Ui/js/modal/modal'],
+        function($, modal) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: '',
+                buttons: []
+            };
+
+            var popup = modal(options, $('.sale-grid'));
+            $("#sale-button").on('click', function() {
+                $(".sale-grid").modal("openModal");
+            });
+        }
+    );
+</script>
